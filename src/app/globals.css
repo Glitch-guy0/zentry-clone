@@ -67,11 +67,11 @@ body {
   }
 
   .hero-heading {
-    @apply uppercase font-zentry font-black text-7xl md:text-[10rem]
+    @apply uppercase font-zentry font-black text-7xl md:text-[8rem]
   }
 
   .secondary-heading{
-    @apply text-lg md:text-4xl ml-1
+    @apply text-lg md:text-xl ml-1
   }
   .about-subtext {
     @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-[34rem];
