@@ -2,7 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 gsap.registerPlugin();
 
@@ -11,22 +11,41 @@ export default function Hero() {
   const [clicked, setClicked] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(1);
   const [NextVideoIndex, setNextVideoIndex] = useState(2);
-  function videoUpdate() {
-    setCurrentVideoIndex(NextVideoIndex);
-    setNextVideoIndex((NextVideoIndex % totalVideos) + 1);
-  }
-  const videoUrl = (num) => `/videos/hero-${num}.mp4`;
+  const [loadingvideos, setLoadingVideos] = useState(totalVideos);
+  const [loadingScreen, setLoadingScreen] = useState(true);
 
   // elemnts reference
   const currentVideo = useRef();
   const nextVideo = useRef();
 
+  // helper function ( to rotate video within limits)
+  function videoUpdate() {
+    setCurrentVideoIndex(NextVideoIndex);
+    setNextVideoIndex((NextVideoIndex % totalVideos) + 1);
+  }
+
+  // set video url for tag (used for both current and next video ref)
+  const videoUrl = (num) => `/videos/hero-${num}.mp4`;
+
+  useEffect(() => {
+    // load videos
+    const videoLoader = currentVideo.current;
+    videoLoader.src = videoUrl(loadingvideos);
+    videoLoader.oncanplaythrough = () => {
+      if (loadingvideos > 1 /* the initial video number */) {
+        setLoadingVideos(loadingvideos - 1);
+      }
+    };
+    if (!loadingvideos) {
+      setLoadingScreen(false);
+    }
+  }, [loadingvideos]);
+
+  // animations
   useGSAP(
     () => {
-      // animations
       // when clicked scale the video
       if (clicked) {
-        currentVideo.current.pause();
         gsap.to(nextVideo.current, {
           duration: 1,
           opacity: 1,
@@ -38,7 +57,6 @@ export default function Hero() {
           onComplete: () => {
             // change to the video
             videoUpdate();
-            currentVideo.current.play();
             setClicked(false);
           },
         });
@@ -54,6 +72,8 @@ export default function Hero() {
 
   return (
     <main className="min-h-dvh w-screen relative">
+      {/* loading screen */}
+      {loadingScreen && <LoadingScreen />}
       {/* root animation */}
       <video
         ref={currentVideo}
@@ -100,4 +120,8 @@ export default function Hero() {
       {/* </div> */}
     </main>
   );
+}
+
+function LoadingScreen() {
+  return <div>this is loading screen</div>;
 }
