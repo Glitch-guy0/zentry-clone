@@ -1,10 +1,14 @@
+"use client";
 import Hero from "@/components/root/hero";
 
 
 export default function rootPage(){
+
   return(
-    <main className='relative min-h-dvh w-screen overflow-x-hidden'>
-      <Hero/>
-    </main>
+    <>
+      <Hero />
+      <div className="h-screen w-screen bg-blue-400"></div>
+    </>
   )
 }
+
