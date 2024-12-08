@@ -72,7 +72,7 @@ export default function Hero() {
       ease: "power1.inOut",
       scrollTrigger: {
         trigger: page.current,
-        start: "bottom bottom",
+        start: "bottom bottom-=100",
         end: "bottom top",
         scrub: 1
       },
@@ -80,7 +80,7 @@ export default function Hero() {
   });
 
   return (
-    <main className="min-h-dvh w-screen relative">
+    <main className="min-h-svh w-screen relative">
       {/* laoding screen */}
       {loadingScreen && <LoadingScreen />}
       {/* root animation */}
