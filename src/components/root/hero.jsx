@@ -15,8 +15,8 @@ export default function Hero() {
   const [loadingScreen, setLoadingScreen] = useState(true);
 
   // elemnts reference
-  const currentVideo = useRef();
-  const nextVideo = useRef();
+  const currentVideo = useRef(null);
+  const nextVideo = useRef(null);
 
   // helper function ( to rotate video within limits)
   function videoUpdate() {
@@ -27,19 +27,9 @@ export default function Hero() {
   // set video url for tag (used for both current and next video ref)
   const videoUrl = (num) => `/videos/hero-${num}.mp4`;
 
-  useEffect(() => {
-    // load videos
-    const videoLoader = currentVideo.current;
-    videoLoader.src = videoUrl(loadingvideos);
-    videoLoader.oncanplaythrough = () => {
-      if (loadingvideos > 1 /* the initial video number */) {
-        setLoadingVideos(loadingvideos - 1);
-      }
-    };
-    if (!loadingvideos) {
-      setLoadingScreen(false);
-    }
-  }, [loadingvideos]);
+  useEffect(() =>{
+    setLoadingScreen(false);
+  })
 
   // animations
   useGSAP(
@@ -76,6 +66,7 @@ export default function Hero() {
       {loadingScreen && <LoadingScreen />}
       {/* root animation */}
       <video
+        preload="auto"
         ref={currentVideo}
         src={videoUrl(currentVideoIndex)}
         className="absolute top-0 left-0 object-cover object-center size-full"
@@ -96,7 +87,7 @@ export default function Hero() {
           onClick={() => {
             setClicked(true);
           }}
-          className="absolute  absolute-center object-center size-9/12 opacity-0 group-hover:opacity-100 group-hover:size-full object-cover transition-all duration-500 ease-in rounded"
+          className="absolute bg-transparent absolute-center object-center size-9/12 opacity-0 group-hover:opacity-100 group-hover:size-full object-cover transition-all duration-500 ease-in rounded"
         />
       </div>
       {/* <div className="relative z-40 h-dvh w-dvw pointer-events-none text-blue-75"> */}
@@ -123,5 +114,13 @@ export default function Hero() {
 }
 
 function LoadingScreen() {
-  return <div>this is loading screen</div>;
+  return (
+      <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+        <div className="three-body">
+          <div className="three-body__dot"></div>
+          <div className="three-body__dot"></div>
+          <div className="three-body__dot"></div>
+        </div>
+      </div>
+  )
 }
