@@ -4,6 +4,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useState, useRef, useEffect } from "react";
+import Button from "../ui/Button";
+
 
 export default function Hero() {
   gsap.registerPlugin(ScrollTrigger);
@@ -86,6 +88,7 @@ export default function Hero() {
       {/* root animation */}
       <div ref={page} className="h-full w-full absolute z-[10] overflow-hidden">
         <video
+        preload="auto"
           ref={currentVideo}
           src={videoUrl(currentVideoIndex)}
           className="absolute top-0 left-0 object-cover object-center size-full"
@@ -118,6 +121,7 @@ export default function Hero() {
             Enter the Metagame Layer <br /> Unleash the Play Economy
           </p>
           {/* TODO:  have to place a button here (******************) */}
+          <Button title="explore" className="rounded-full bg-yellow-500" onClick={() => {}} />
         </div>
         <div className="absolute z-40 text-white special-font bottom-5 right-5">
           {/* bottom content */}
