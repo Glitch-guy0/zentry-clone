@@ -269,3 +269,15 @@ body {
     opacity: 0.8;
   }
 }
+
+
+
+/* custom css  */
+#about-clip{
+  transform-style: preserve-3d;
+  perspective: 500;
+} 
+
+#about-clip-image{
+  
+}
