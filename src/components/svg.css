@@ -1,0 +1,9 @@
+
+.clipPath-lg {
+  clip-path: inset(22% 38% round 7px);
+  transform:skew(-3deg, -3deg);
+}
+
+.clipPath-sm{
+  clip-path: inset( 25% 20% round 7px)
+}
